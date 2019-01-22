@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CategoryComment index{% endblock %}
+
+{% block body %}
+    <h1>CategoryComment index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Author</th>
+                <th>Content</th>
+                <th>Created_at</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category_comment in category_comments %}
+            <tr>
+                <td>{{ category_comment.id }}</td>
+                <td>{{ category_comment.author }}</td>
+                <td>{{ category_comment.content }}</td>
+                <td>{{ category_comment.createdAt ? category_comment.createdAt|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('category_comment_show', {'id': category_comment.id}) }}">show</a>
+                    <a href="{{ path('category_comment_edit', {'id': category_comment.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('category_comment_new') }}">Create new</a>
+{% endblock %}
