@@ -2,10 +2,8 @@
 
 namespace App\Service;
 
-
 use App\Entity\Visitor;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Psr\SimpleCache\CacheInterface;
 
 class VisitorHelper
 {
@@ -13,45 +11,27 @@ class VisitorHelper
      * @var RegistryInterface
      */
     private $registry;
-    /**
-     * @var CacheInterface
-     */
-    private $cache;
 
-    public function __construct(RegistryInterface $registry, CacheInterface $cache)
+    public function __construct(RegistryInterface $registry)
     {
         $this->registry = $registry;
-        $this->cache = $cache;
     }
 
     public function saveVisitor(array $data)
     {
         $data = $this->prepareAgent($data);
 
-        $key = md5(serialize($data));
-        if ($this->cache->has($key)) {
-            return;
-        }
-
         $em = $this->registry->getManager();
-        $repo = $em->getRepository(Visitor::class);
 
-        $visitor = $repo->findOneBy($data);
+        $visitor = new Visitor();
+        $visitor
+            ->setIp($data['ip'])
+            ->setUserAgent($data['userAgent'])
+            ->setSessionId($data['sessionId'])
+        ;
 
-        if (!$visitor) {
-            $visitor = new Visitor();
-            $visitor
-                ->setIp($data['ip'])
-                ->setUserAgent($data['userAgent'])
-                ->setSessionId($data['sessionId'])
-            ;
-
-            $em->persist($visitor);
-            $em->flush();
-
-        }
-
-        $this->cache->set($key, $visitor);
+        $em->persist($visitor);
+        $em->flush();
     }
 
     public function getVisitorStatistic()
@@ -74,6 +54,7 @@ class VisitorHelper
                 return $data;
             }
         }
-    }
 
+        return $data;
+    }
 }

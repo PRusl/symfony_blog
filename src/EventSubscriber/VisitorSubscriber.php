@@ -20,14 +20,7 @@ class VisitorSubscriber implements EventSubscriberInterface
 
     public function onKernelRequest(GetResponseEvent $event)
     {
-        $session = $event->getRequest()->getSession();
-        if (!$session->isStarted()) {
-            if (!$session->start()) {
-                return;
-            }
-        }
-
-        $this->setVisitor($event);
+       $this->setVisitor($event);
     }
 
     public static function getSubscribedEvents()
@@ -39,14 +32,20 @@ class VisitorSubscriber implements EventSubscriberInterface
 
     private function setVisitor(GetResponseEvent $event)
     {
-        $request   = $event->getRequest();
+        $request = $event->getRequest();
 
-        $data = [
-            'ip'        => $request->getClientIp(),
-            'userAgent' => $request->headers->get('User-Agent'),
-            'sessionId' => $request->getSession()->getId()
-        ];
+        if (!$request->getSession()->get('visitorStored')) {
+            $data = [
+                'ip'        => $request->getClientIp(),
+                'userAgent' => $request->headers->get('User-Agent'),
+                'sessionId' => $request->getSession()->getId()
+            ];
 
-        $this->visitorHelper->saveVisitor($data);
+            if (!empty($data)) {
+                $this->visitorHelper->saveVisitor($data);
+
+                $request->getSession()->set('visitorStored', true);
+            }
+        }
     }
 }
