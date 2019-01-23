@@ -24,7 +24,7 @@ abstract class AEntityComment
 
     /**
      * @Assert\Regex(
-     *     pattern="/^[A-Z]([[:alpha:]]*) +[A-Z]([[:alpha:]]*)$/",
+     *     pattern="/^[A-Z]([A-Za-z]*) +[A-Z]([A-Za-z]*)$/",
      *     match=true,
      *     message="Your name must contain two words beginning with the uppercase"
      * )

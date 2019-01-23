@@ -13,12 +13,8 @@
             <a href="{{ path('category_index') }}">back to list</a>
         </div>
 
-        <table class="table-border">
+        <table class="table table-bordered">
             <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ category.id }}</td>
-            </tr>
             <tr>
                 <th>Name</th>
                 <td>{{ category.name }}</td>
@@ -29,9 +25,13 @@
             </tr>
             <tr>
                 <th>Articles</th>
-                {% for article in category.articles %}
-                    <td>{{ article }}</td>
-                {% endfor %}
+                <td>
+                    <ul>
+                        {% for article in category.articles %}
+                            <li>{{ article }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
             </tr>
             </tbody>
         </table>

@@ -13,7 +13,7 @@
             <a href="{{ path('article_index') }}">back to list</a>
         </div>
 
-        <table class="table">
+        <table class="table table-bordered">
             <tbody>
             <tr>
                 <th>Category</th>
@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <th>File</th>
-                <td>{{ article.file }}</td>
+                <td><a href="{{ asset('./public/uploads/article_files' ~ '/' ~ article.file) }}" >{{ article.file }}</a></td>
             </tr>
             </tbody>
         </table>

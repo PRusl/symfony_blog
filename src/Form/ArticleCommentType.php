@@ -12,7 +12,10 @@ class ArticleCommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('author', null, ['attr' => ['class' => 'form-control form_comment_author']])
+            ->add('author', null, ['attr' => [
+                'class' => 'form-control form_comment_author',
+                'title' => 'Name must contain two words beginning with the uppercase'
+            ]])
             ->add('content', null, ['attr' => ['class' => 'form-control form_comment_content']])
         ;
     }

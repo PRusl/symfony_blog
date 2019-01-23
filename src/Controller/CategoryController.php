@@ -29,7 +29,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="category_new", methods={"GET","POST"})
+     * @Route("/new/", name="category_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
     {
@@ -52,10 +52,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="article_show", methods={"GET","POST"})
-     */
-    /**
-     * @Route("/{id}", name="category_show", methods={"GET", "POST"})
+     * @Route("/{id}/", name="category_show", methods={"GET", "POST"})
      */
     public function show($id, Category $category): Response
     {
@@ -73,7 +70,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/new-comment", name="category_add_comment", methods={"POST"})
+     * @Route("/{id}/new-comment/", name="category_add_comment", methods={"POST"})
      */
     public function addComment(Category $category, Request $request): Response
     {
@@ -93,7 +90,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="category_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit/", name="category_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Category $category): Response
     {
@@ -115,7 +112,7 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="category_delete", methods={"DELETE"})
+     * @Route("/{id}/", name="category_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Category $category): Response
     {

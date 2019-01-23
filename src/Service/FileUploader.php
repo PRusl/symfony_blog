@@ -2,6 +2,7 @@
 namespace App\Service;
 
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class FileUploader
@@ -23,6 +24,13 @@ class FileUploader
         }
 
         return $fileName;
+    }
+
+    public function download($fileName)
+    {
+        $file = new File($this->getTargetDirectory() . '/' . $fileName);
+
+        return $file;
     }
 
     public function getTargetDirectory()

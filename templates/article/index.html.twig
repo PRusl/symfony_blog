@@ -12,20 +12,16 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>Content</th>
-                <th>File</th>
                 <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             {% for article in articles %}
                 <tr>
-                    <td>{{ article.id }}</td>
                     <td>{{ article.name }}</td>
                     <td>{{ article.content }}</td>
-                    <td>{{ article.file }}</td>
                     <td>
                         <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
                         <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>

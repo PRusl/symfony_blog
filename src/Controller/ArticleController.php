@@ -31,7 +31,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="article_new", methods={"GET","POST"})
+     * @Route("/new/", name="article_new", methods={"GET","POST"})
      */
     public function new(Request $request, FileUploader $fileUploader): Response
     {
@@ -54,7 +54,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="article_show", methods={"GET","POST"})
+     * @Route("/{id}/", name="article_show", methods={"GET","POST"})
      */
     public function show($id, Article $article): Response
     {
@@ -72,7 +72,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/new-comment", name="article_add_comment", methods={"POST"})
+     * @Route("/{id}/new-comment/", name="article_add_comment", methods={"POST"})
      */
     public function addComment(Article $article, Request $request): Response
     {
@@ -92,7 +92,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit/", name="article_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Article $article, FileUploader $fileUploader): Response
     {
@@ -120,7 +120,7 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="article_delete", methods={"DELETE"})
+     * @Route("/{id}/", name="article_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Article $article): Response
     {
