@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Category</h1>
 
+    <a href="{{ path('category_index') }}">back to list</a>
+
     <table class="table">
         <tbody>
             <tr>
@@ -25,18 +27,13 @@
                     <td>{{ article }}</td>
                 {% endfor %}
             </tr>
-            <tr>
-                <th>Comments</th>
-                {% for comment in category.comments %}
-                    <td>{{ comment }}</td>
-                {% endfor %}
-            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('category_index') }}">back to list</a>
+    {{ include('comment/comment.html.twig') }}
+{% endblock %}
 
-    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
-
-    {{ include('category/_delete_form.html.twig') }}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/comment_post.js') }}"></script>
 {% endblock %}

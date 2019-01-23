@@ -5,11 +5,13 @@
 {% block body %}
     <h1>Article</h1>
 
+    <a href="{{ path('article_index') }}">back to list</a>
+
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ article.id }}</td>
+                <th>Category</th>
+                <td>{{ article.category }}</td>
             </tr>
             <tr>
                 <th>Name</th>
@@ -23,18 +25,13 @@
                 <th>File</th>
                 <td>{{ article.file }}</td>
             </tr>
-            <tr>
-                <th>Comments</th>
-                {% for comment in article.comments %}
-                    <td>{{ comment }}</td>
-                {% endfor %}
-            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('article_index') }}">back to list</a>
+    {{ include('comment/comment.html.twig') }}
+{% endblock %}
 
-    <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>
-
-    {{ include('article/_delete_form.html.twig') }}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/comment_post.js') }}"></script>
 {% endblock %}

@@ -5,3 +5,4 @@ twig:
 
     globals:
         visitor_helper: '@App\Service\VisitorHelper'
+        article_file_directory: '%article_file_directory%'

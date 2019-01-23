@@ -3,11 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\ArticleComment;
+use App\Form\ArticleCommentType;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -51,13 +54,41 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="article_show", methods={"GET"})
+     * @Route("/{id}", name="article_show", methods={"GET","POST"})
      */
-    public function show(Article $article): Response
+    public function show($id, Article $article): Response
     {
+        $form = $this->createForm(ArticleCommentType::class, new ArticleComment(), [
+            'action' => $this->generateUrl('article_add_comment', ['id' => $id]),
+            'method' => 'POST',
+            'attr'   => ['id' => 'comment_form']
+        ]);
+
         return $this->render('article/show.html.twig', [
             'article' => $article,
+            'comments' => $article->getComments(),
+            'commentForm' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/{id}/new-comment", name="article_add_comment", methods={"POST"})
+     */
+    public function addComment(Article $article, Request $request): Response
+    {
+        $articleComment = new ArticleComment();
+
+        $articleComment
+            ->setOwner($article)
+            ->setAuthor($request->get('author'))
+            ->setContent($request->get('content'))
+        ;
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($articleComment);
+        $entityManager->flush();
+
+        return new JsonResponse($articleComment->toArray());
     }
 
     /**

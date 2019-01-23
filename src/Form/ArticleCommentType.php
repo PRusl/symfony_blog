@@ -12,10 +12,8 @@ class ArticleCommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('author')
-            ->add('content')
-            ->add('created_at')
-            ->add('owner')
+            ->add('author', null, ['attr' => ['class' => 'form_comment_author']])
+            ->add('content', null, ['attr' => ['class' => 'form_comment_content']])
         ;
     }
 

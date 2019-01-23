@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class AEntityComment
 {
+    const FORMAT_DATE = 'Y-m-d';
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -98,7 +99,21 @@ abstract class AEntityComment
 
     public function __toString()
     {
-        return sprintf('%s at %s: %s', $this->getAuthor(), date_format($this->getCreatedAt(), 'Y-m-d'), $this->getContent());
+        return sprintf(
+            '%s at %s: %s',
+            $this->getAuthor(),
+            date_format($this->getCreatedAt(), self::FORMAT_DATE),
+            $this->getContent());
+    }
+
+    public function toArray()
+    {
+        return [
+            'id'         => $this->getId(),
+            'author'     => $this->getAuthor(),
+            'content'    => $this->getContent(),
+            'created_at' => date_format($this->getCreatedAt(), self::FORMAT_DATE),
+        ];
     }
 
     /**
