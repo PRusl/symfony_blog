@@ -5,10 +5,16 @@
 {% block body %}
     <h1>Category</h1>
 
-    <a href="{{ path('category_index') }}">back to list</a>
+    <div class="container">
+        <div class="text-center">
+            <a href="{{ path('main') }}">back to home</a>
+        </div>
+        <div class="text-center">
+            <a href="{{ path('category_index') }}">back to list</a>
+        </div>
 
-    <table class="table">
-        <tbody>
+        <table class="table-border">
+            <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ category.id }}</td>
@@ -27,10 +33,11 @@
                     <td>{{ article }}</td>
                 {% endfor %}
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    {{ include('comment/comment.html.twig') }}
+        {{ include('comment/comment.html.twig') }}
+    </div>
 {% endblock %}
 
 {% block javascripts %}

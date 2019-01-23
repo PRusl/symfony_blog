@@ -12,8 +12,8 @@ class CategoryCommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('author', null, ['attr' => ['class' => 'form_comment_author']])
-            ->add('content', null, ['attr' => ['class' => 'form_comment_content']])
+            ->add('author', null, ['attr' => ['class' => 'form-control form_comment_author']])
+            ->add('content', null, ['attr' => ['class' => 'form-control form_comment_content']])
         ;
     }
 

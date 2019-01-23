@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello!{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Hello!</h1>
+
+    <div class="text-center">
+        You can choose:
+        <ul class="list-group">
+            <li class="list-group-item"><a href="{{ path('category_index') }}">Categories</a></li>
+            <li class="list-group-item"><a href="{{ path('article_index') }}">Articles</a></li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -1,7 +1,9 @@
 <header>
-    <div class="statistic">
+    <div class="statistic small mb-3">
         {% for key, value in visitor_helper.getVisitorStatistic %}
+        <div class="agents">
             <span class="agent">{{ value.agent }}:</span><span class="number"> {{ value.number }}; </span>
+        </div>
         {% endfor %}
     </div>
 </header>
