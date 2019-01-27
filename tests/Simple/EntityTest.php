@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Simple;
 
 use App\Entity\AEntityComment;
 use App\Entity\Article;
@@ -12,7 +12,7 @@ class EntityTest extends TestCase
     /**
      * @dataProvider provideAttributes
      */
-    public function testSomething($attribute, $class)
+    public function testEntityAttributes($attribute, $class)
     {
         $this->assertClassHasAttribute($attribute, $class);
     }
