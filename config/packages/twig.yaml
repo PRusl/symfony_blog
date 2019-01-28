@@ -6,3 +6,5 @@ twig:
     globals:
         visitor_helper: '@App\Service\VisitorHelper'
         article_file_directory: '%article_file_directory%'
+
+    form_themes: ['bootstrap_4_layout.html.twig']
