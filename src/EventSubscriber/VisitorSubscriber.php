@@ -8,6 +8,8 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 
 class VisitorSubscriber implements EventSubscriberInterface
 {
+    const IS_VISITOR_STORED = 'isVisitorStored';
+
     /**
      * @var VisitorHelper
      */
@@ -34,18 +36,10 @@ class VisitorSubscriber implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        if (!$request->getSession()->get('visitorStored')) {
-            $data = [
-                'ip'        => $request->getClientIp(),
-                'userAgent' => $request->headers->get('User-Agent'),
-                'sessionId' => $request->getSession()->getId()
-            ];
+        if (!$request->getSession()->get(self::IS_VISITOR_STORED)) {
+            $this->visitorHelper->saveVisitor($request);
 
-            if (!empty($data)) {
-                $this->visitorHelper->saveVisitor($data);
-
-                $request->getSession()->set('visitorStored', true);
-            }
+            $request->getSession()->set(self::IS_VISITOR_STORED, true);
         }
     }
 }

@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Entity\Visitor;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class VisitorHelper
 {
@@ -17,17 +18,14 @@ class VisitorHelper
         $this->registry = $registry;
     }
 
-    public function saveVisitor(array $data)
+    public function saveVisitor(Request $request)
     {
-        $data = $this->prepareAgent($data);
-
         $em = $this->registry->getManager();
 
         $visitor = new Visitor();
         $visitor
-            ->setIp($data['ip'])
-            ->setUserAgent($data['userAgent'])
-            ->setSessionId($data['sessionId'])
+            ->setIp($request->getClientIp())
+            ->setUserAgent($this->prepareAgent($request->headers->get('User-Agent')))
         ;
 
         $em->persist($visitor);
@@ -42,19 +40,17 @@ class VisitorHelper
         return $repo->getStatisticByAgents();
     }
 
-    private function prepareAgent(array $data)
+    private function prepareAgent(string $userAgent)
     {
         $browsers = ["Chrome", "Firefox", "Safari", "Opera",
             "MSIE", "Trident", "Edge"];
 
         foreach ($browsers as $browser) {
-            if (strpos($data['userAgent'], $browser) !== false) {
-                $data['userAgent'] = $browser;
-
-                return $data;
+            if (strpos($userAgent, $browser) !== false) {
+                return $browser;
             }
         }
 
-        return $data;
+        return $userAgent;
     }
 }

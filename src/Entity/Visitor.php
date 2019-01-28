@@ -26,11 +26,6 @@ class Visitor
      */
     private $userAgent;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $sessionId;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -56,18 +51,6 @@ class Visitor
     public function setUserAgent(string $userAgent): self
     {
         $this->userAgent = $userAgent;
-
-        return $this;
-    }
-
-    public function getSessionId(): ?string
-    {
-        return $this->sessionId;
-    }
-
-    public function setSessionId(string $sessionId): self
-    {
-        $this->sessionId = $sessionId;
 
         return $this;
     }
